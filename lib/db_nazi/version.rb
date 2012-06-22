@@ -1,4 +1,4 @@
-module DbNazi
+module DBNazi
   VERSION = [0, 0, 0]
 
   class << VERSION

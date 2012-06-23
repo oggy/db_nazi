@@ -12,8 +12,8 @@ module DBNazi
   class << self
     attr_accessor :enabled
     attr_accessor :from_version
-    attr_accessor :require_varchar_limits
     attr_accessor :require_nullability
+    attr_accessor :require_varchar_limits
     attr_accessor :require_index_uniqueness
 
     def enabled?(setting)
@@ -50,8 +50,8 @@ module DBNazi
     def reset
       self.enabled = true
       self.from_version = nil
-      self.require_varchar_limits   = true
       self.require_nullability      = true
+      self.require_varchar_limits   = true
       self.require_index_uniqueness = true
     end
   end

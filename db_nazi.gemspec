@@ -8,15 +8,18 @@ Gem::Specification.new do |gem|
   gem.authors       = ['George Ogata']
   gem.email         = ['george.ogata@gmail.com']
   gem.license       = 'MIT'
-  gem.description   = "TODO: Write a gem description"
-  gem.summary       = "TODO: Write a gem summary"
-  gem.homepage      = ''
+  gem.description   = ""
+  gem.summary       = "Encourage good DB practices in ActiveRecord migrations."
+  gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
 
+  gem.add_runtime_dependency 'activerecord', '~> 3.2.6'
   gem.add_development_dependency 'ritual', '~> 0.4.1'
   gem.add_development_dependency 'temporaries', '~> 0.2.0'
   gem.add_development_dependency 'looksee', '~> 0.2.0'
+  gem.add_development_dependency 'debugger', '~> 1.1.3'
+  gem.add_development_dependency 'sqlite3', '~> 1.3.6'
 end

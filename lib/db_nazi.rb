@@ -1,6 +1,7 @@
 module DBNazi
   autoload :AbstractAdapter, 'db_nazi/abstract_adapter'
   autoload :Migration, 'db_nazi/migration'
+  autoload :MigrationProxy, 'db_nazi/migration_proxy'
   autoload :TableDefinition, 'db_nazi/table_definition'
   autoload :VERSION, 'db_nazi/version'
 
@@ -40,10 +41,10 @@ module DBNazi
       end
     end
 
-    def enabled_for_migration?(migration)
+    def enabled_for_migration?(migration, version)
       return false if !@enabled
       return false if migration.nazi_disabled?
-      return false if DBNazi.from_version && DBNazi.from_version > migration.version
+      return false if DBNazi.from_version && DBNazi.from_version > version
       true
     end
 
@@ -62,3 +63,4 @@ end
 ActiveRecord::ConnectionAdapters::AbstractAdapter.__send__ :include, DBNazi::AbstractAdapter
 ActiveRecord::ConnectionAdapters::TableDefinition.__send__ :include, DBNazi::TableDefinition
 ActiveRecord::Migration.__send__ :include, DBNazi::Migration
+ActiveRecord::MigrationProxy.__send__ :include, DBNazi::MigrationProxy

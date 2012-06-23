@@ -1,17 +1,10 @@
 require_relative '../../test_helper'
 
 describe DBNazi::TableDefinition do
-  def connection
-    ActiveRecord::Base.connection
-  end
+  use_database
 
   before do
     DBNazi.reset
-    recreate_database('db_nazi_test')
-  end
-
-  after do
-    drop_database('db_nazi_test')
   end
 
   describe "nullability" do

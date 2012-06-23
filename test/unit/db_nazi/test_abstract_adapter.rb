@@ -1,18 +1,11 @@
 require_relative '../../test_helper'
 
 describe DBNazi::AbstractAdapter do
-  def connection
-    ActiveRecord::Base.connection
-  end
+  use_database
 
   before do
     DBNazi.reset
-    recreate_database('db_nazi_test')
     connection.create_table 'test_table'
-  end
-
-  after do
-    drop_database('db_nazi_test')
   end
 
   describe "nullability" do

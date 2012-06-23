@@ -91,4 +91,9 @@ describe DBNazi::AbstractAdapter do
       end
     end
   end
+
+  it "does not prevent construction of the schema migrations table" do
+    # AR doesn't specify a varchar limit for the version column. Lame.
+    connection.initialize_schema_migrations_table
+  end
 end

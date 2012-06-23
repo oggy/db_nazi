@@ -19,5 +19,13 @@ module DBNazi
           raise IndexUniquenessRequired, "[db_nazi] :unique parameter required"
       end
     end
+
+    def create_table(name, *)
+      if name.to_s == ActiveRecord::Migrator.schema_migrations_table_name.to_s
+        DBNazi.disable { super }
+      else
+        super
+      end
+    end
   end
 end

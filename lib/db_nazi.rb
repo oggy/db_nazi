@@ -2,6 +2,7 @@ module DBNazi
   autoload :AbstractAdapter, 'db_nazi/abstract_adapter'
   autoload :Migration, 'db_nazi/migration'
   autoload :MigrationProxy, 'db_nazi/migration_proxy'
+  autoload :Table, 'db_nazi/table'
   autoload :TableDefinition, 'db_nazi/table_definition'
   autoload :VERSION, 'db_nazi/version'
 
@@ -55,6 +56,25 @@ module DBNazi
       self.require_varchar_limits   = true
       self.require_index_uniqueness = true
     end
+
+    def check_column(type, options)
+      if DBNazi.enabled?(:require_nullability) && type != :primary_key
+        options.key?(:null) or
+          raise NullabilityRequired, "[db_nazi] :null parameter required"
+      end
+      if DBNazi.enabled?(:require_varchar_limits)
+        # AR calls #to_sym on type, so do the same here.
+        type.to_sym == :string && !options.key?(:limit) and
+          raise VarcharLimitRequired, "[db_nazi] string column requires :limit parameter"
+      end
+    end
+
+    def check_index(options)
+      if DBNazi.enabled?(:require_index_uniqueness)
+        options.key?(:unique) or
+          raise IndexUniquenessRequired, "[db_nazi] :unique parameter required"
+      end
+    end
   end
 
   reset
@@ -62,5 +82,6 @@ end
 
 ActiveRecord::ConnectionAdapters::AbstractAdapter.__send__ :include, DBNazi::AbstractAdapter
 ActiveRecord::ConnectionAdapters::TableDefinition.__send__ :include, DBNazi::TableDefinition
+ActiveRecord::ConnectionAdapters::Table.__send__ :include, DBNazi::Table
 ActiveRecord::Migration.__send__ :include, DBNazi::Migration
 ActiveRecord::MigrationProxy.__send__ :include, DBNazi::MigrationProxy

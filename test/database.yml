@@ -1,2 +1,6 @@
 sqlite3:
   database: ':memory:'
+mysql2:
+  username: root
+  password:
+  database: db_nazi_test

@@ -8,35 +8,35 @@ require 'temporaries'
 require 'debugger'
 require 'db_nazi'
 
-ADAPTER = ENV['DBNAZI_ADAPTER'] || 'sqlite3'
-CONNECTION = YAML.load_file("#{ROOT}/test/database.yml")[ADAPTER].merge(adapter: ADAPTER)
-ActiveRecord::Base.establish_connection(CONNECTION)
+ADAPTER = ENV['DB_NAZI_ADAPTER'] || 'sqlite3'
+CONFIG = YAML.load_file("#{ROOT}/test/database.yml")[ADAPTER].merge(adapter: ADAPTER)
+if ADAPTER =~ /sqlite/
+  ActiveRecord::Base.establish_connection(CONFIG)
+else
+  ActiveRecord::Base.establish_connection(CONFIG.merge('database' => nil))
+end
 
 MiniTest::Spec.class_eval do
   def recreate_database
     drop_database
-    case ADAPTER
-    when 'sqlite3'
-      ActiveRecord::Base.establish_connection(CONNECTION)
-    when 'mysql2', 'postgresql'
-      ActiveRecord::Base.connection.create_database 'db_nazi_test'
-    else
-      raise "can't create database for #{ADAPTER}"
-    end
-  end
-
-  def drop_database
-    case ADAPTER
-    when 'sqlite3'
-    when 'mysql2', 'postgresql'
-      ActiveRecord::Base.connection.drop_database 'db_nazi_test'
-    else
-      raise "can't drop database for #{ADAPTER}"
-    end
+    create_database
   end
 
   def connection
     ActiveRecord::Base.connection
+  end
+
+  def create_database
+    unless ADAPTER =~ /sqlite/
+      connection.create_database CONFIG['database']
+    end
+    ActiveRecord::Base.establish_connection(CONFIG)
+  end
+
+  def drop_database
+    unless ADAPTER =~ /sqlite/
+      connection.drop_database CONFIG['database']
+    end
   end
 
   def self.use_database

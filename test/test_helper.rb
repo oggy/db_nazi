@@ -10,8 +10,11 @@ require 'db_nazi'
 
 ADAPTER = ENV['DB_NAZI_ADAPTER'] || 'sqlite3'
 CONFIG = YAML.load_file("#{ROOT}/test/database.yml")[ADAPTER].merge(adapter: ADAPTER)
-if ADAPTER =~ /sqlite/
+case ADAPTER
+when /sqlite/
   ActiveRecord::Base.establish_connection(CONFIG)
+when /postgres/
+  ActiveRecord::Base.establish_connection(CONFIG.merge('database' => 'postgres'))
 else
   ActiveRecord::Base.establish_connection(CONFIG.merge('database' => nil))
 end
@@ -34,7 +37,14 @@ MiniTest::Spec.class_eval do
   end
 
   def drop_database
-    unless ADAPTER =~ /sqlite/
+    case ADAPTER
+    when /sqlite/
+      # Nothing to do - in-memory database.
+    when /postgres/
+      # Postgres barfs if you drop the selected database.
+      ActiveRecord::Base.establish_connection(CONFIG.merge('database' => 'postgres'))
+      connection.drop_database CONFIG['database']
+    else
       connection.drop_database CONFIG['database']
     end
   end

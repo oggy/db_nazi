@@ -4,3 +4,8 @@ mysql2:
   username: root
   password:
   database: db_nazi_test
+postgresql:
+  username: root
+  password:
+  database: db_nazi_test
+  min_messages: warning

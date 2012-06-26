@@ -1,3 +1,7 @@
+== LATEST
+
+ * Disable DB Nazi when loading schema.
+
 == 0.0.2 2012-06-25
 
  * Support bulk alters.

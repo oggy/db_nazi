@@ -2,6 +2,7 @@ module DBNazi
   autoload :AbstractAdapter, 'db_nazi/abstract_adapter'
   autoload :Migration, 'db_nazi/migration'
   autoload :MigrationProxy, 'db_nazi/migration_proxy'
+  autoload :Schema, 'db_nazi/schema'
   autoload :Table, 'db_nazi/table'
   autoload :TableDefinition, 'db_nazi/table_definition'
   autoload :VERSION, 'db_nazi/version'
@@ -85,3 +86,4 @@ ActiveRecord::ConnectionAdapters::TableDefinition.__send__ :include, DBNazi::Tab
 ActiveRecord::ConnectionAdapters::Table.__send__ :include, DBNazi::Table
 ActiveRecord::Migration.__send__ :include, DBNazi::Migration
 ActiveRecord::MigrationProxy.__send__ :include, DBNazi::MigrationProxy
+ActiveRecord::Schema.__send__ :include, DBNazi::Schema

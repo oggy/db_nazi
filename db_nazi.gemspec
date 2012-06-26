@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'activerecord', '~> 3.2.6'
   gem.add_development_dependency 'ritual', '~> 0.4.1'
   gem.add_development_dependency 'minitest', '~> 3.1.0'
-  gem.add_development_dependency 'temporaries', '~> 0.2.0'
+  gem.add_development_dependency 'temporaries', '~> 0.3.0'
   gem.add_development_dependency 'sqlite3', '~> 1.3.6'
   gem.add_development_dependency 'mysql2', '~> 0.3.11'
 end

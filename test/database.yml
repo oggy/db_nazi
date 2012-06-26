@@ -1,5 +1,9 @@
 sqlite3:
   database: ':memory:'
+mysql:
+  username: root
+  password:
+  database: db_nazi_test
 mysql2:
   username: root
   password:
@@ -9,3 +13,7 @@ postgresql:
   password:
   database: db_nazi_test
   min_messages: warning
+jdbcmysql:
+  username: root
+  password:
+  database: db_nazi_test

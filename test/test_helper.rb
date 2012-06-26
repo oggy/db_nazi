@@ -5,7 +5,6 @@ require 'minitest/spec'
 require 'yaml'
 require 'active_record'
 require 'temporaries'
-require 'debugger'
 require 'db_nazi'
 
 ADAPTER = ENV['DB_NAZI_ADAPTER'] || 'sqlite3'

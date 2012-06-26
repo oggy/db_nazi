@@ -5,7 +5,7 @@ describe DBNazi::MigrationProxy do
   use_temporary_directory "#{ROOT}/test/tmp"
 
   # Migrations use Kernel.puts. Lame.
-  out = Class.new { def write(*) end; def flush(*) end }.new
+  out = Class.new { def puts(*); end; def write(*) end; def flush(*) end }.new
   use_global_value :stdout, out
 
   before do

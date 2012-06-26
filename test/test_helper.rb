@@ -52,4 +52,10 @@ MiniTest::Spec.class_eval do
     before { recreate_database }
     after { drop_database }
   end
+
+  # Migrations use Kernel.puts. Lame. This shuts them up.
+  def self.silence_stdout
+    out = Class.new { def puts(*); end; def write(*) end; def flush(*) end }.new
+    use_global_value :stdout, out
+  end
 end

@@ -1,6 +1,6 @@
 require 'ritual'
 
 task :ci do
-  sh 'bundle exec testrb test/unit'
-  sh 'bundle exec testrb test/integration'
+  sh 'testrb test/unit'
+  sh 'testrb test/integration'
 end

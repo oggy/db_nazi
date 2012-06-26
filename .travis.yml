@@ -1,6 +1,7 @@
 language: ruby
 bundler_args: --without dev
 script: bundle exec rake ci
+rvm: []  # only run the builds in the matrix below
 matrix:
   include:
     - rvm: 1.9.2

@@ -1,17 +1,6 @@
 language: ruby
 bundler_args: --without dev
 script: bundle exec rake ci
-rvm:
-  - 1.9.2
-  - 1.9.3
-  - jruby-head  # jruby-1.6.7 has a broken testrb - use head for now
-  - rbx-19mode
-env:
-  - DB_NAZI_ADAPTER=sqlite3
-  - DB_NAZI_ADAPTER=mysql
-  - DB_NAZI_ADAPTER=mysql2
-  - DB_NAZI_ADAPTER=jdbcmysql
-  - DB_NAZI_ADAPTER=postgresql
 matrix:
   include:
     - rvm: 1.9.2
@@ -41,5 +30,6 @@ matrix:
     - rvm: rbx-19mode
       env: DB_NAZI_ADAPTER=postgresql
 
-    - rvm: jruby-19mode
+    # jruby-1.6.7 has a broken testrb - use head for now
+    - rvm: jruby-head
       env: DB_NAZI_ADAPTER=jdbcmysql

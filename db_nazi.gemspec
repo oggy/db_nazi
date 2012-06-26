@@ -21,5 +21,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest', '~> 3.1.0'
   gem.add_development_dependency 'temporaries', '~> 0.3.0'
   gem.add_development_dependency 'sqlite3', '~> 1.3.6'
-  gem.add_development_dependency 'mysql2', '~> 0.3.11'
 end

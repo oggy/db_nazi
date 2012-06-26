@@ -10,6 +10,7 @@ matrix:
     - rvm: 1.9.2
       env: DB_NAZI_ADAPTER=mysql2
     - rvm: 1.9.2
+      before_script: psql -c 'create database myapp_test;' -U postgres
       env: DB_NAZI_ADAPTER=postgresql
 
     - rvm: 1.9.3
@@ -19,6 +20,7 @@ matrix:
     - rvm: 1.9.3
       env: DB_NAZI_ADAPTER=mysql2
     - rvm: 1.9.3
+      before_script: psql -c 'create database myapp_test;' -U postgres
       env: DB_NAZI_ADAPTER=postgresql
 
     - rvm: rbx-19mode
@@ -28,6 +30,7 @@ matrix:
     - rvm: rbx-19mode
       env: DB_NAZI_ADAPTER=mysql2
     - rvm: rbx-19mode
+      before_script: psql -c 'create database myapp_test;' -U postgres
       env: DB_NAZI_ADAPTER=postgresql
 
     # jruby-1.6.7 has a broken testrb - use head for now

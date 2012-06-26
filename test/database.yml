@@ -9,7 +9,7 @@ mysql2:
   password:
   database: db_nazi_test
 postgresql:
-  username: root
+  username: postgres
   password:
   database: db_nazi_test
   min_messages: warning

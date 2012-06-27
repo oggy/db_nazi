@@ -8,6 +8,13 @@ describe DBNazi::TableDefinition do
   end
 
   describe "#column" do
+    it "still creates the column if ok" do
+      connection.create_table 'test_table' do |t|
+        t.column 'test_column', :boolean, null: true
+      end
+      connection.column_exists?('test_table', 'test_column', :boolean, null: true).must_equal true
+    end
+
     describe "when nullability is required" do
       use_attribute_value DBNazi, :require_nullability, true
 

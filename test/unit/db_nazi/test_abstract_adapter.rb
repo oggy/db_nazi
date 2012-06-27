@@ -9,6 +9,11 @@ describe DBNazi::AbstractAdapter do
   end
 
   describe "#add_column" do
+    it "still adds the column if ok" do
+      connection.add_column 'test_table', 'test_column', :boolean, null: false, default: false
+      connection.column_exists?('test_table', 'test_column', :boolean, null: false, default: false).must_equal true
+    end
+
     describe "when nullability is required" do
       use_attribute_value DBNazi, :require_nullability, true
 
@@ -63,6 +68,11 @@ describe DBNazi::AbstractAdapter do
       connection.add_column 'test_table', 'test_column', :boolean, null: false, default: false
     end
 
+    it "still changes the column if ok" do
+      connection.change_column 'test_table', 'test_column', :integer, null: false
+      connection.column_exists?('test_table', 'test_column', :integer, null: false).must_equal true
+    end
+
     describe "when nullability is required" do
       use_attribute_value DBNazi, :require_nullability, true
 
@@ -115,6 +125,11 @@ describe DBNazi::AbstractAdapter do
   describe "#add_index" do
     before do
       connection.add_column 'test_table', 'test_column', :boolean, null: true
+    end
+
+    it "still adds the index if ok" do
+      connection.add_index 'test_table', 'test_column', unique: false
+      connection.index_exists?('test_table', 'test_column').must_equal true
     end
 
     describe "when index uniqueness is required" do

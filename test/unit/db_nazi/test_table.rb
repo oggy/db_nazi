@@ -12,6 +12,13 @@ describe DBNazi::TableDefinition do
       connection.create_table 'test_table'
     end
 
+    it "still creates the column if ok" do
+      connection.change_table 'test_table', bulk: true do |t|
+        t.column 'test_column', :boolean, null: true
+      end
+      connection.column_exists?('test_table', 'test_column', :boolean, null: true).must_equal true
+    end
+
     describe "when nullability is required" do
       use_attribute_value DBNazi, :require_nullability, true
 
@@ -82,6 +89,13 @@ describe DBNazi::TableDefinition do
       end
     end
 
+    it "still creates the index if ok" do
+      connection.change_table 'test_table', bulk: true do |t|
+        t.index 'test_column', unique: false
+      end
+      connection.index_exists?('test_table', 'test_column', unique: false).must_equal true
+    end
+
     describe "when index uniqueness is required" do
       use_attribute_value DBNazi, :require_index_uniqueness, true
 
@@ -122,6 +136,13 @@ describe DBNazi::TableDefinition do
       connection.create_table 'test_table' do |t|
         t.column 'test_column', :boolean, null: true
       end
+    end
+
+    it "still changes the column if ok" do
+      connection.change_table 'test_table', bulk: true do |t|
+        t.change 'test_column', :integer, null: true
+      end
+      connection.column_exists?('test_table', 'test_column', :integer, null: true).must_equal true
     end
 
     describe "when nullability is required" do

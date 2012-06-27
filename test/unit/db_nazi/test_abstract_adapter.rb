@@ -69,8 +69,8 @@ describe DBNazi::AbstractAdapter do
     end
 
     it "still changes the column if ok" do
-      connection.change_column 'test_table', 'test_column', :integer, null: false
-      connection.column_exists?('test_table', 'test_column', :integer, null: false).must_equal true
+      connection.change_column 'test_table', 'test_column', :boolean, null: true
+      connection.column_exists?('test_table', 'test_column', :boolean, null: true).must_equal true
     end
 
     describe "when nullability is required" do

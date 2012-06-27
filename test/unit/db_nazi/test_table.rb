@@ -140,9 +140,9 @@ describe DBNazi::TableDefinition do
 
     it "still changes the column if ok" do
       connection.change_table 'test_table', bulk: true do |t|
-        t.change 'test_column', :integer, null: true
+        t.change 'test_column', :boolean, null: false, default: false
       end
-      connection.column_exists?('test_table', 'test_column', :integer, null: true).must_equal true
+      connection.column_exists?('test_table', 'test_column', :boolean, null: false, default: false).must_equal true
     end
 
     describe "when nullability is required" do

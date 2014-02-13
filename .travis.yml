@@ -4,16 +4,6 @@ script: bundle exec rake ci
 rvm: []  # only run the builds in the matrix below
 matrix:
   include:
-    - rvm: 1.9.2
-      env: DB_NAZI_ADAPTER=sqlite3
-    - rvm: 1.9.2
-      env: DB_NAZI_ADAPTER=mysql
-    - rvm: 1.9.2
-      env: DB_NAZI_ADAPTER=mysql2
-    - rvm: 1.9.2
-      before_script: psql -c 'create database myapp_test;' -U postgres
-      env: DB_NAZI_ADAPTER=postgresql
-
     - rvm: 1.9.3
       env: DB_NAZI_ADAPTER=sqlite3
     - rvm: 1.9.3
@@ -24,16 +14,25 @@ matrix:
       before_script: psql -c 'create database myapp_test;' -U postgres
       env: DB_NAZI_ADAPTER=postgresql
 
-    - rvm: rbx-19mode
+    - rvm: 2.1.0
       env: DB_NAZI_ADAPTER=sqlite3
-    - rvm: rbx-19mode
+    - rvm: 2.1.0
       env: DB_NAZI_ADAPTER=mysql
-    - rvm: rbx-19mode
+    - rvm: 2.1.0
       env: DB_NAZI_ADAPTER=mysql2
-    - rvm: rbx-19mode
+    - rvm: 2.1.0
       before_script: psql -c 'create database myapp_test;' -U postgres
       env: DB_NAZI_ADAPTER=postgresql
 
-    # jruby-1.6.7 has a broken testrb - use head for now
-    - rvm: jruby-head
+    - rvm: rbx-2
+      env: DB_NAZI_ADAPTER=sqlite3
+    - rvm: rbx-2
+      env: DB_NAZI_ADAPTER=mysql
+    - rvm: rbx-2
+      env: DB_NAZI_ADAPTER=mysql2
+    - rvm: rbx-2
+      before_script: psql -c 'create database myapp_test;' -U postgres
+      env: DB_NAZI_ADAPTER=postgresql
+
+    - rvm: jruby-19mode
       env: DB_NAZI_ADAPTER=jdbcmysql

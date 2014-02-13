@@ -15,10 +15,6 @@ describe DBNazi do
     Dir.chdir @original_pwd
   end
 
-  before do
-    DBNazi.reset
-  end
-
   it "raises an error when there is a careless migration" do
     create_bad_migration(1)
     run_migrations

@@ -8,13 +8,7 @@ describe DBNazi::MigrationProxy do
   before do
     @original_pwd = Dir.pwd
     Dir.chdir "#{ROOT}/test/tmp"
-  end
 
-  after do
-    Dir.chdir @original_pwd
-  end
-
-  before do
     @migration_proxy = ActiveRecord::MigrationProxy.new("test_migration", 10, "test_migration.rb", nil)
     @migration_class = Class.new(ActiveRecord::Migration) do
       attr_reader :enabled
@@ -25,6 +19,10 @@ describe DBNazi::MigrationProxy do
     end
     migration = @migration = @migration_class.new
     @migration_proxy.singleton_class.send(:define_method, :migration) { migration }
+  end
+
+  after do
+    Dir.chdir @original_pwd
   end
 
   describe "#migrate" do

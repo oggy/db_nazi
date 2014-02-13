@@ -1,4 +1,7 @@
-source :rubygems
+source 'https://rubygems.org'
+gem 'ritual'
+gem 'minitest', '< 5'
+gem 'temporaries'
 gemspec
 
 case ENV['DB_NAZI_ADAPTER']

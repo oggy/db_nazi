@@ -49,8 +49,11 @@ MiniTest::Spec.class_eval do
   end
 
   def self.use_database
-    before { recreate_database }
-    after { drop_database }
+    include Module.new {
+      extend MiniTest::Spec::DSL
+      before { recreate_database }
+      after { drop_database }
+    }
   end
 
   # Migrations use Kernel.puts. Lame. This shuts them up.

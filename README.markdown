@@ -1,4 +1,4 @@
-## DB Nazi
+## DB Nazi [![Build Status](https://travis-ci.org/oggy/db_nazi.png)](https://travis-ci.org/oggy/db_nazi)
 
 Encourages good DB practices in Active Record migrations.
 

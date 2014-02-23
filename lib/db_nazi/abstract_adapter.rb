@@ -29,6 +29,11 @@ module DBNazi
         super
       end
 
+      def change_column_default(table_name, column_name, default)
+        DBNazi.require_nullability = false
+        super
+      end
+
       def create_table(name, *)
         if name.to_s == ActiveRecord::Migrator.schema_migrations_table_name.to_s
           DBNazi.disable { super }

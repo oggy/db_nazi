@@ -122,6 +122,23 @@ describe DBNazi::AbstractAdapter do
     end
   end
 
+  describe "#change_column_default" do
+    before do
+      connection.add_column 'test_table', 'test_column', :integer, null: false, default: 1
+    end
+
+    it "still changes the column default if ok" do
+      connection.change_column_default 'test_table', 'test_column', 2
+      connection.column_exists?('test_table', 'test_column', :integer, null: false, default: 2).must_equal true
+    end
+
+    it "restores the value of the nullability check" do
+      DBNazi.require_nullability.must_equal true
+      connection.change_column_default 'test_table', 'test_column', 2
+      DBNazi.require_nullability.must_equal true
+    end
+  end
+
   describe "#add_index" do
     before do
       connection.add_column 'test_table', 'test_column', :boolean, null: true

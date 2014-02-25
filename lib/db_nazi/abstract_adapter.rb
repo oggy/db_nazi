@@ -30,8 +30,14 @@ module DBNazi
       end
 
       def change_column_default(table_name, column_name, default)
-        DBNazi.require_nullability = false
-        super
+        original_nullability = DBNazi.require_nullability
+        begin
+          DBNazi.require_nullability = false
+          return_val = super
+        ensure
+          DBNazi.require_nullability = original_nullability
+          return_val
+        end
       end
 
       def create_table(name, *)

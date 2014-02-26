@@ -1,4 +1,4 @@
-== LATEST
+== 0.0.5 2014-02-26
 
  * Disable DB Nazi for change_column_default.
 
